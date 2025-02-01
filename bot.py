@@ -1,32 +1,29 @@
+import logging
 from telegram import Update
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+from telegram.ext import Updater, CommandHandler, CallbackContext
 
-TOKEN = "7660065153:AAE6136d6Y0H-hyTt_taMSrIvz9_TdhihJw"  # Replace with your bot token
+# Enable logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# Command to start the bot
+# Define a start command handler
 def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Hello! Send '/sendfile' to receive a file.")
+    update.message.reply_text('Hello! I am your bot.')
 
-# Command to send a file
-def send_file(update: Update, context: CallbackContext) -> None:
-    file_path = "FolderFile
-/7_វិញ្ញាសារ 2017.pdf"  # Replace with the file you want to send
-    with open(file_path, "rb") as file:
-        update.message.reply_document(document=file, filename="yourfile.pdf")
+def main() -> None:
+    # Replace 'YOUR_TOKEN' with your bot's token
+    updater = Updater("7660065153:AAE6136d6Y0H-hyTt_taMSrIvz9_TdhihJw")
 
-# Reply to any text message
-def echo(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text(f"You said: {update.message.text}")
+    # Get the dispatcher to register handlers
+    dispatcher = updater.dispatcher
 
-def main():
-    updater = Updater(TOKEN, use_context=True)
-    dp = updater.dispatcher
+    # Register the start command handler
+    dispatcher.add_handler(CommandHandler("start", start))
 
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("sendfile", send_file))
-    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
-
+    # Start the Bot
     updater.start_polling()
+
+    # Run the bot until you send a signal to stop
     updater.idle()
 
 if __name__ == '__main__':
