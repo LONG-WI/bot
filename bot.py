@@ -9,7 +9,8 @@ def start(update: Update, context: CallbackContext) -> None:
 
 # Command to send a file
 def send_file(update: Update, context: CallbackContext) -> None:
-    file_path = "yourfile.pdf"  # Replace with the file you want to send
+    file_path = "FolderFile
+/7_វិញ្ញាសារ 2017.pdf"  # Replace with the file you want to send
     with open(file_path, "rb") as file:
         update.message.reply_document(document=file, filename="yourfile.pdf")
 
